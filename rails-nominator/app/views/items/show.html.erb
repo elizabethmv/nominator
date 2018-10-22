@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Pantry:</strong>
+  <%= @item.pantry_id %>
+</p>
+
+<p>
+  <strong>Fridge:</strong>
+  <%= @item.fridge_id %>
+</p>
+
+<p>
+  <strong>Meal:</strong>
+  <%= @item.meal_id %>
+</p>
+
+<p>
+  <strong>Expiration:</strong>
+  <%= @item.expiration %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
