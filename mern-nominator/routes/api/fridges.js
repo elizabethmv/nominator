@@ -1,21 +1,28 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 // Fridge model
 const Fridge = require('../../models/Fridge.js');
+const Item = require('../../models/Item.js');
 
 // GET api/fridges
 router.get('/', (req, res) => {
   Fridge.find()
+    // .populate('Item')
     .sort({ date: -1 })
-    .then(fridges => res.json(fridges))
+    .then(fridges => res.json(fridges));
 });
 
 // GET api/fridges/:id
 router.get('/:id',  (req, res) => {
-  Fridge.findById(req.params.id)
-    .then( fridge => res.json(fridge))
+  Item.find({ fridge: mongoose.Types.ObjectId(req.params.id) })
+    .then( items => res.json(items))
     .catch( error => res.status(404).json({success: false}));
+
+  // Fridge.findById(req.params.id)
+  //   .then( fridge => res.json(fridge))
+  //   .catch( error => res.status(404).json({success: false}));
 });
 
 // POST api/fridges

@@ -17,6 +17,7 @@ const Item  = props =>
         &times;
       </Button>
       {props.name}
+      {props.typeMeal}
     </ListGroupItem>
   </CSSTransition>;
 

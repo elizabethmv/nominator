@@ -5,9 +5,22 @@ import AppNavbar from './components/AppNavbar';
 import ItemModal from './components/ItemModal';
 import Collection from './components/Collection';
 import { Container } from 'reactstrap';
+import styled from 'styled-components';
 
 import { Provider } from 'react-redux';
 import store from './store';
+
+const Display = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Box = styled.div`
+  flex: 1
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 class App extends Component {
   render() {
@@ -16,8 +29,12 @@ class App extends Component {
         <div className="App">
           <AppNavbar />
           <Container>
-            
-            <ItemModal />
+
+            <Display>
+              <Box><ItemModal name='Add Item'/></Box>
+              <Box><ItemModal name='Add Meal'/></Box>
+            </Display>
+
             <Collection />
 
           </Container>

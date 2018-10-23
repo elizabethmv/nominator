@@ -1,10 +1,7 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_FRIDGE_ITEMS, GET_PANTRY_ITEMS, GET_MEALS } from './types';
 
 export const getItems = () => dispatch => {
-  // return {
-  //   type: GET_ITEMS
-  // }
   dispatch( setItemsLoading() );
   axios.get('/api/items')
     .then( response => dispatch({
@@ -38,4 +35,31 @@ export const setItemsLoading  = ()  => {
   return {
     type: ITEMS_LOADING
   }
+}
+
+export const getFridgeItems = (fridge) => dispatch => {
+  dispatch( setItemsLoading() );
+  axios.get(`/api/fridges/${fridge._id}`)
+    .then( response => dispatch({
+      type: GET_FRIDGE_ITEMS,
+      payload: response.data 
+    }))
+}
+
+export const getPantryItems = (pantry) => dispatch => {
+  dispatch( setItemsLoading() );
+  axios.get(`/api/pantries/${pantry._id}`)
+    .then( response => dispatch({
+      type: GET_PANTRY_ITEMS,
+      payload: response.data 
+    }))
+}
+
+export const getMeals = () => dispatch => {
+  dispatch( setItemsLoading() );
+  axios.get('/api/meals')
+    .then( response => dispatch({
+      type: GET_MEALS,
+      payload: response.data 
+    }))
 }

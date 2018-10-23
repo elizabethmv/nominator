@@ -8,8 +8,8 @@ import Item from './Item';
       <h1>{props.title}</h1>
       <ListGroup>
         <TransitionGroup className="shopping-list">
-          { props.items.map(({ _id, name }) => ( 
-              <Item key={_id} id={_id}  name={name} onDeleteClick={props.onDeleteClick}/>
+          { props.items.map(({ _id, name, typeMeal }) => ( 
+              <Item key={_id} id={_id}  name={name} typeMeal={typeMeal} onDeleteClick={props.onDeleteClick}/>
           ))}
         </TransitionGroup>
     </ListGroup>

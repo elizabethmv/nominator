@@ -13,6 +13,11 @@ import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
 
 class ItemModal extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
   state = {
     modal: false,
     name: '',
@@ -35,10 +40,12 @@ class ItemModal extends Component {
     e.preventDefault();
 
     const newItem = {
+
       name: this.state.name,
       fridge: this.state.fridge,
       pantry: this.state.pantry,
       meal: this.state.meal,
+
     };
 
     // Add item via addItem action
@@ -56,7 +63,7 @@ class ItemModal extends Component {
           style={{ marginBottom: '2rem' }}
           onClick={this.toggle}
         >
-          Add Item
+          {this.props.name}
         </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -94,7 +101,7 @@ class ItemModal extends Component {
                   onChange={this.onChange}
                 />
                 <Button color="dark" style={{ marginTop: '2rem' }} block>
-                  Add Item
+                  {this.props.name}
                 </Button>
               </FormGroup>
             </Form>
