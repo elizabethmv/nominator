@@ -29,9 +29,11 @@ localhost:5000/api url backend api
 
 ## Start a local mongodb database
 
-Uncomment line 2 on file keys.js mern-nominator/config/keys.js
+* Uncomment line 2 on file keys.js mern-nominator/config/keys.js
+
 `// mongoURI: "mongodb://cesarcatano:password1@ds135433.mlab.com:35433/mern-shopping-list-app"`
 
-and comment line 3 on file keys.js mern-nominator/config/keys.js
+* and comment line 3 on file keys.js mern-nominator/config/keys.js
+
 `mongoURI: "mongodb://localhost:27017/mern-shopping-list-app"`
 
