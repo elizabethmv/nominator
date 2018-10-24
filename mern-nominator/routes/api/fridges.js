@@ -26,11 +26,20 @@ router.get('/:id',  (req, res) => {
 });
 
 // POST api/fridges
-router.post('/', (req, res) => {
+router.post('/:id', (req, res) => {
   const newFridge = new Fridge({
 
   });
   newFridge.save().then(fridge => res.json(fridge));
+});
+
+// PATCH api/fridges/:id
+router.patch('/:id', (req, res) => {
+  console.log(req.params.id);
+  // Item.
+  Fridge.findById(req.params.id)
+    .then( fridge => console.log( req.body.item._id).then( () => res.json({success: true})) )
+    .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/fridges/:id

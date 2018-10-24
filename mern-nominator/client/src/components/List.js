@@ -9,7 +9,7 @@ import Item from './Item';
       <ListGroup>
         <TransitionGroup className="shopping-list">
           { props.items.map(({ _id, name, typeMeal }) => ( 
-              <Item key={_id} id={_id}  name={name} typeMeal={typeMeal} onDeleteClick={props.onDeleteClick}/>
+              <Item key={_id} id={_id}  name={name} typeMeal={typeMeal}/>
           ))}
         </TransitionGroup>
     </ListGroup>

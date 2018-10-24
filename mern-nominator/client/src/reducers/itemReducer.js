@@ -1,14 +1,18 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_FRIDGE_ITEMS, GET_PANTRY_ITEMS, GET_MEALS } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_PANTRY_ITEMS, GET_MEALS } from '../actions/types';
 
 const initialState = {
   items: [],
-  fridgeItems: [],
   pantryItems: [],
   meals: [],
   loading: false, 
 }
 export default function(state = initialState, action) {
   switch(action.type) {
+    case  ITEMS_LOADING:
+      return {
+        ...state,
+         loading: true
+      }
     case  GET_ITEMS:
       return {
         ...state,
@@ -24,17 +28,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: [action.payload, ...state.items]
-      }
-    case  ITEMS_LOADING:
-      return {
-        ...state,
-         loading: true
-      }
-    case  GET_FRIDGE_ITEMS:
-      return {
-        ...state,
-        fridgeItems: action.payload,
-        loading: false 
       }
     case  GET_PANTRY_ITEMS:
       return {

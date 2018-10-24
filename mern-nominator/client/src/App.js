@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import AppNavbar from './components/AppNavbar';
-import ItemModal from './components/ItemModal';
+import AddItemModal from './components/AddItemModal';
 import Collection from './components/Collection';
 import { Container } from 'reactstrap';
 import styled from 'styled-components';
@@ -22,22 +22,26 @@ const Box = styled.div`
   object-fit: cover;
 `;
 
+const Main = styled.div`
+  padding: 10px;
+`;
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <div className="App">
           <AppNavbar />
-          <Container>
+          <Main>
 
             <Display>
-              <Box><ItemModal name='Add Item'/></Box>
-              <Box><ItemModal name='Add Meal'/></Box>
+              <Box><AddItemModal name='Add Item'/></Box>
+              <Box><AddItemModal name='Add Meal'/></Box>
             </Display>
 
             <Collection />
 
-          </Container>
+          </Main>
           
           <h6 style={{textAlign:'center', marginTop: '2rem'}}>Welcome! to the Nominator App, Where you can add items or delete them, is up to you to decide.</h6>
         </div>

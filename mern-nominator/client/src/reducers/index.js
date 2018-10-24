@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
-import itemReducer from './itemReducer';
+import item from './itemReducer';
+import fridge from './fridgeReducer';
+
+console.log(fridge);
 
 export default combineReducers({
-  item: itemReducer
+  fridge,
+  item,
+  
 });

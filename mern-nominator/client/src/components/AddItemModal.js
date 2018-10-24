@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
 
-class ItemModal extends Component {
+class AddItemModal extends Component {
 
   constructor(props){
     super(props);
@@ -119,4 +119,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addItem }
-)(ItemModal);
+)(AddItemModal);
