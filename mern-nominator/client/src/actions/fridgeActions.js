@@ -17,6 +17,7 @@ export const getFridgeItems = (fridge) => dispatch => {
 }
 
 export const addItemToFridge = (fridge, item) => dispatch => {
+  console.log(item);
   axios
     .patch(`/api/fridges/${fridge._id}`, item)
     .then( response => 

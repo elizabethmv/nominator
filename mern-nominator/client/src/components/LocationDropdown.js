@@ -14,6 +14,10 @@ class LocationDropdown extends React.Component {
     };
   }
 
+  componentDidMount(){
+    console.log(this.props.id)
+  }
+
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -26,7 +30,7 @@ class LocationDropdown extends React.Component {
         <DropdownToggle caret></DropdownToggle>
         <DropdownMenu>
           <DropdownItem
-            onClick={()=>{this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id })}}
+            onClick={()=>{ this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id }) }}
           >Fridge</DropdownItem>
           <DropdownItem>Pantry</DropdownItem>
           <DropdownItem>Meal</DropdownItem>
