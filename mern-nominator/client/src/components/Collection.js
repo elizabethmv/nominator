@@ -3,8 +3,9 @@ import List from './List';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getItems, deleteItem, getPantryItems, getMeals } from '../actions/itemActions';
+import { getItems, deleteItem, getMeals } from '../actions/itemActions';
 import { getFridgeItems, addItemToFridge } from '../actions/fridgeActions';
+import { getPantryItems, addItemToPantry } from '../actions/pantryActions';
 
 const Display = styled.div`
   display: flex;
@@ -32,13 +33,10 @@ const Box = styled.div`
     this.props.deleteItem(id);
   };
 
-  onDropdownActionClick = (fridge,id) => {
-    this.props.addItemToFridge(fridge,id);
-  };
-
   render() {
-  const { items, pantryItems, meals } = this.props.item;
+  const { items, meals } = this.props.item;
   const { fridgeItems } = this.props.fridge;
+  const { pantryItems } = this.props.pantry;
     return (
       <Display>
         <Box><List title='All' items={items} /></Box>
@@ -53,12 +51,22 @@ const Box = styled.div`
 Collection.propTypes = {
   getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
-  fridge: PropTypes.object.isRequired
+  fridge: PropTypes.object.isRequired,
+  pantry: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   item: state.item,
-  fridge: state.fridge
+  fridge: state.fridge,
+  pantry: state.pantry
 })
 
-export default connect(mapStateToProps,{ getItems, deleteItem, getFridgeItems, addItemToFridge, getPantryItems, getMeals  })(Collection);
+export default connect(mapStateToProps,{ 
+  getItems, 
+  deleteItem, 
+  getFridgeItems, 
+  addItemToFridge, 
+  getPantryItems, 
+  addItemToPantry, 
+  getMeals  
+})(Collection);

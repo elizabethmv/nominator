@@ -32,6 +32,24 @@ router.post('/', (req, res) => {
   newPantry.save().then(pantry => res.json(pantry));
 });
 
+// PATCH api/pantries/:id
+router.patch('/:id', (req, res) => {
+  console.log(req.body);
+  console.log(req.params.id);
+  console.log(req.body._id);
+  Item.updateOne(
+    { "_id" : mongoose.Types.ObjectId(req.body._id) }, 
+    { 
+      $set: { 
+        "fridge" : null,
+        "pantry" : mongoose.Types.ObjectId(req.params.id),
+        "meal" : null,
+      } 
+    })
+    .then(() => Item.find({ pantry: mongoose.Types.ObjectId(req.params.id) }))
+    .catch( error => res.status(404).json({success: false}));
+});
+
 // DELETE api/pantries/:id
 router.delete('/:id', (req, res) => {
   Pantry.findById(req.params.id)

@@ -37,7 +37,7 @@ class AddMealModal extends Component {
     e.preventDefault();
 
     // Add item via addItemToMeal action
-    this.props.addItemToMeal(meal, item);
+    // this.props.addItemToMeal(meal, item);
 
     // Close modal
     this.toggle();
@@ -55,37 +55,16 @@ class AddMealModal extends Component {
         </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add an item to the list</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Plan a meal</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Item</Label>
+                <Label for="item">Meal</Label>
                 <Input
                   type="text"
                   name="name"
                   id="item"
-                  placeholder="Add shopping item"
-                  onChange={this.onChange}
-                />
-                <Input
-                  type="text"
-                  name="fridge"
-                  id="fridge"
-                  placeholder="Add fridge id"
-                  onChange={this.onChange}
-                />
-                <Input
-                  type="text"
-                  name="pantry"
-                  id="pantry"
-                  placeholder="Add pantry id"
-                  onChange={this.onChange}
-                />
-                <Input
-                  type="text"
-                  name="meal"
-                  id="meal"
-                  placeholder="Add meal id"
+                  placeholder="Name your meal, Lunch?"
                   onChange={this.onChange}
                 />
                 <Button color="dark" style={{ marginTop: '2rem' }} block>

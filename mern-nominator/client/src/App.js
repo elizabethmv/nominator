@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import AppNavbar from './components/AppNavbar';
 import AddItemModal from './components/AddItemModal';
+import AddMealModal from './components/AddMealModal';
 import Collection from './components/Collection';
-import { Container } from 'reactstrap';
+// import { Container } from 'reactstrap';
 import styled from 'styled-components';
 
 import { Provider } from 'react-redux';
@@ -33,10 +34,9 @@ class App extends Component {
         <div className="App">
           <AppNavbar />
           <Main>
-
             <Display>
               <Box><AddItemModal name='Add Item'/></Box>
-              <Box><AddItemModal name='Add Meal'/></Box>
+              <Box><AddMealModal name='Add Meal'/></Box>
             </Display>
 
             <Collection />
