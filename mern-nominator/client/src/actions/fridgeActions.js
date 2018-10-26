@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FRIDGE_ITEMS_LOADING, GET_FRIDGE_ITEMS, ADD_ITEM_TO_FRIDGE } from './types';
+import { FRIDGE_ITEMS_LOADING, GET_FRIDGE_ITEMS, ADD_ITEM_TO_FRIDGE, DELETE_ITEM_FROM_FRIDGE, DELETE_ITEM_FROM_PANTRY } from './types';
 
 export const setFridgeItemsLoading  = ()  => {
   return {
@@ -17,15 +17,22 @@ export const getFridgeItems = (fridge) => dispatch => {
 }
 
 export const addItemToFridge = (fridge, item) => dispatch => {
-  console.log(item);
   axios
     .patch(`/api/fridges/${fridge._id}`, item)
-    .then( response => 
+    .then( response =>{
       dispatch({
         type: ADD_ITEM_TO_FRIDGE,
         payload: response.data
-      }))
+      });
+      console.log(item)
+      dispatch({ type: DELETE_ITEM_FROM_PANTRY, payload: item });
+    })
 }
+
+export const deleteItemFromFridge = item => ({
+  type: DELETE_ITEM_FROM_FRIDGE,
+  payload: item
+})
 
 
 

@@ -37,12 +37,7 @@ router.post('/:id', (req, res) => {
 
 // PATCH api/fridges/:id
 router.patch('/:id', async (req, res) => {
-  console.log('item id:', req.body);
-  console.log('fridge id', req.params.id);
-  console.log(req.body._id);
-  
-
-  const item = await Item.findByIdAndUpdate(
+  return await Item.findByIdAndUpdate(
     req.body._id , 
     { 
       "fridge" : mongoose.Types.ObjectId(req.params.id),
@@ -51,10 +46,8 @@ router.patch('/:id', async (req, res) => {
     },
     {new: true}
   )
-    // .then(item => res.json(item))
-    // .catch( error => res.status(404).json({success: false}));
-  
-  res.json(item)
+  .then(item => res.json(item))
+  .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/fridges/:id

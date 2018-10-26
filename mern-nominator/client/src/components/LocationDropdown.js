@@ -3,8 +3,7 @@ import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reac
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToFridge } from '../actions/fridgeActions';
-import { addItemToPantry, getPantryItems } from '../actions/pantryActions';
-
+import { addItemToPantry, getPantryItems, deleteItemFromPantry } from '../actions/pantryActions';
 
 class LocationDropdown extends React.Component {
   constructor(props) {
@@ -16,11 +15,10 @@ class LocationDropdown extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.onClickDropdownItem = this.onClickDropdownItem.bind(this);
-
   }
 
   componentDidMount(){
-    console.log(this.props.id)
+
   }
 
   toggle() {
@@ -32,10 +30,8 @@ class LocationDropdown extends React.Component {
   async onClickDropdownItem(e) {
     switch (e.target.name) {
       case 'fridge':
-        await this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id });
-        
-        this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" });
-    
+        this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id })
+        // this.props.deleteItemFromPantry({ _id: this.props.id });
         break;
       case 'pantry':
         this.props.addItemToPantry({ _id: "5bccf0ada1ab9f13df595d27" }, { _id: this.props.id });
@@ -71,7 +67,6 @@ class LocationDropdown extends React.Component {
 }
 
 LocationDropdown.propTypes = {
-  // deleteItem: PropTypes.object.isRequired,
   fridge: PropTypes.object.isRequired,
   pantry: PropTypes.object.isRequired,
 }
@@ -84,5 +79,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps,{ 
   addItemToFridge, 
   addItemToPantry,
-  getPantryItems
+  getPantryItems,
+  deleteItemFromPantry
 })(LocationDropdown);

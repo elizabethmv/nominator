@@ -1,4 +1,4 @@
-import { PANTRY_ITEMS_LOADING, GET_PANTRY_ITEMS, ADD_ITEM_TO_PANTRY } from '../actions/types';
+import { PANTRY_ITEMS_LOADING, GET_PANTRY_ITEMS, ADD_ITEM_TO_PANTRY, DELETE_ITEM_FROM_PANTRY } from '../actions/types';
 
 const initialState = {
   pantryItems: [],
@@ -21,6 +21,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         pantryItems: [action.payload, ...state.pantryItems]
+      }
+    case  DELETE_ITEM_FROM_PANTRY:
+      return {
+        ...state,
+        pantryItems: state.pantryItems.filter(item => {
+          console.log(item._id !== action.payload._id);
+          return item._id !== action.payload._id
+        })
       }
     default:
       return state;

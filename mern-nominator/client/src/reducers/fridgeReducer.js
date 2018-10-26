@@ -1,4 +1,4 @@
-import { FRIDGE_ITEMS_LOADING, GET_FRIDGE_ITEMS, ADD_ITEM_TO_FRIDGE } from '../actions/types';
+import { FRIDGE_ITEMS_LOADING, GET_FRIDGE_ITEMS, ADD_ITEM_TO_FRIDGE, DELETE_ITEM_FROM_FRIDGE } from '../actions/types';
 
 const initialState = {
   fridgeItems: [],
@@ -21,6 +21,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         fridgeItems: [action.payload, ...state.fridgeItems]
+      }
+    case  DELETE_ITEM_FROM_FRIDGE:
+      return {
+        ...state,
+        fridgeItems: state.fridgeItems.filter(item => {
+          console.log(item._id !== action.payload._id);
+          return item._id !== action.payload._id
+        })
       }
     default:
       return state;
