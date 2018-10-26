@@ -27,6 +27,7 @@ router.post('/', (req, res) => {
     meal: req.body.meal,
   });
   newItem.save().then(item => res.json(item));
+  // fridge.items.push(newItem)
 });
 
 // DELETE api/items/:id

@@ -46,7 +46,11 @@ router.patch('/:id', (req, res) => {
         "meal" : null,
       } 
     })
-    .then(() => Item.find({ pantry: mongoose.Types.ObjectId(req.params.id) }))
+    .then(() => {
+      const pantryItems = Item.find({ pantry: mongoose.Types.ObjectId(req.params.id) }).then(items => res.json(items));
+      console.log(pantryItems);
+      return pantryItems;
+    })
     .catch( error => res.status(404).json({success: false}));
 });
 

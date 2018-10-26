@@ -23,7 +23,7 @@ const Box = styled.div`
   componentDidMount() {
     this.props.getItems();
     this.props.getFridgeItems({ _id: "5bcce9e5ce791b117ec60f7c" });
-    this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" })
+    this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" });
     this.props.getMeals();
 
     console.log(this.props);

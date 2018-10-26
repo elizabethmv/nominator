@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
     case  ADD_ITEM_TO_PANTRY:
       return {
         ...state,
-        pantryItems: [action.payload, ...state.items]
+        pantryItems: [action.payload, ...state.pantryItems]
       }
     default:
       return state;

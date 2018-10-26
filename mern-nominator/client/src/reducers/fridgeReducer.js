@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
     case  ADD_ITEM_TO_FRIDGE:
       return {
         ...state,
-        fridgeItems: [action.payload, ...state.items]
+        fridgeItems: [action.payload, ...state.fridgeItems]
       }
     default:
       return state;
