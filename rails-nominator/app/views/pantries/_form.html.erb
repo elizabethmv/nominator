@@ -1,0 +1,17 @@
+<%= form_with(model: pantry, local: true) do |form| %>
+  <% if pantry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pantry.errors.count, "error") %> prohibited this pantry from being saved:</h2>
+
+      <ul>
+      <% pantry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+# mac
+.DS_Store
+
+# rails-nominator
+rails-nominator/.bundle
+
+rails-nominator/log/*
+rails-nominator/tmp/*
+rails-nominator/!/log/.keep
+rails-nominator/!/tmp/.keep
+
+rails-nominator/node_modules
+rails-nominator/yarn-error.log
+
+rails-nominator/.byebug_history
+
+# mern-nominator
+
+mern-nominator/node_modules
+mern-nominator/package-lock.json
+
+mern-nominator/client/node_modules
+mern-nominator/client/package-lock.json
+mern-nominator/client/yarn.lock
