@@ -23,12 +23,15 @@ export default function(state = initialState, action) {
         pantryItems: [action.payload, ...state.pantryItems]
       }
     case  DELETE_ITEM_FROM_PANTRY:
+      
+      const pantryItems = state.pantryItems.filter(item => {
+        console.log(item._id !== action.payload._id);
+        return item._id !== action.payload._id
+      })
+      // console.log('DELETE_ITEM_FROM_PANTRY',pantryItems)
       return {
         ...state,
-        pantryItems: state.pantryItems.filter(item => {
-          console.log(item._id !== action.payload._id);
-          return item._id !== action.payload._id
-        })
+        pantryItems,
       }
     default:
       return state;

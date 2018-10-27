@@ -20,12 +20,25 @@ const Box = styled.div`
 
  class Collection extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+      fridgeItems: [] ,
+      pantryItems: [] 
+    }
+  }
+
   componentDidMount() {
     this.props.getItems();
     this.props.getFridgeItems({ _id: "5bcce9e5ce791b117ec60f7c" });
     this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" });
     this.props.getMeals();
   };
+
+  componentWillReceiveProps(){
+    this.setState(this.props.fridge);
+    this.setState(this.props.pantry);
+  }
 
   onDeleteClick = id => {
     this.props.deleteItem(id);
@@ -35,6 +48,12 @@ const Box = styled.div`
   const { items, meals } = this.props.item;
   const { fridgeItems } = this.props.fridge;
   const { pantryItems } = this.props.pantry;
+
+  // const { fridgeItems, pantryItems } = this.state;
+  console.log('fridgeItems',fridgeItems, 'pantryItems',pantryItems);
+ 
+
+
     return (
       <Display>
         <Box><List title='All' items={items} /></Box>
