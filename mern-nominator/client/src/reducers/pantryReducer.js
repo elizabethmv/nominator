@@ -18,20 +18,20 @@ export default function(state = initialState, action) {
         loading: false 
       }
     case  ADD_ITEM_TO_PANTRY:
-      return {
-        ...state,
-        pantryItems: [action.payload, ...state.pantryItems]
-      }
-    case  DELETE_ITEM_FROM_PANTRY:
-      
-      const pantryItems = state.pantryItems.filter(item => {
-        console.log(item._id !== action.payload._id);
+      let pantryItems = state.pantryItems.filter( item => {
         return item._id !== action.payload._id
       })
-      // console.log('DELETE_ITEM_FROM_PANTRY',pantryItems)
+
       return {
         ...state,
-        pantryItems,
+        pantryItems: [action.payload, ...pantryItems]
+      }
+    case  DELETE_ITEM_FROM_PANTRY:
+      return {
+        ...state,
+        pantryItems: state.pantryItems.filter(item => {
+          return item._id !== action.payload._id
+        })
       }
     default:
       return state;

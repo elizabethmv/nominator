@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { PANTRY_ITEMS_LOADING, GET_PANTRY_ITEMS, ADD_ITEM_TO_PANTRY, DELETE_ITEM_FROM_PANTRY, DELETE_ITEM_FROM_FRIDGE } from './types';
+import { 
+  PANTRY_ITEMS_LOADING, 
+  GET_PANTRY_ITEMS, 
+  ADD_ITEM_TO_PANTRY, 
+  DELETE_ITEM_FROM_PANTRY, 
+} from './types';
+import { deleteItemFromFridge } from './fridgeActions';
 
 export const setPantryItemsLoading  = ()  => {
   return {
@@ -24,10 +30,7 @@ export const addItemToPantry = (pantry, item) => dispatch => {
         type: ADD_ITEM_TO_PANTRY,
         payload: response.data
       });
-      dispatch({
-        type: DELETE_ITEM_FROM_FRIDGE,
-        payload: item
-      });
+      dispatch( deleteItemFromFridge(item) );
     })
 }
 

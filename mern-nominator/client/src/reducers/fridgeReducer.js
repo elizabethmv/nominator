@@ -18,15 +18,20 @@ export default function(state = initialState, action) {
         loading: false 
       }
     case  ADD_ITEM_TO_FRIDGE:
+
+      let fridgeItems = state.fridgeItems.filter( item => {
+        return item._id !== action.payload._id
+      })
+
       return {
         ...state,
-        fridgeItems: [action.payload, ...state.fridgeItems]
+        fridgeItems: [action.payload, ...fridgeItems]
       }
+
     case  DELETE_ITEM_FROM_FRIDGE:
       return {
         ...state,
         fridgeItems: state.fridgeItems.filter(item => {
-          console.log(item._id !== action.payload._id);
           return item._id !== action.payload._id
         })
       }

@@ -31,7 +31,6 @@ class LocationDropdown extends React.Component {
     switch (e.target.name) {
       case 'fridge':
         this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id })
-        // this.props.deleteItemFromPantry({ _id: this.props.id });
         break;
       case 'pantry':
         this.props.addItemToPantry({ _id: "5bccf0ada1ab9f13df595d27" }, { _id: this.props.id });
