@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
 
 // GET api/meals/:id
 router.get('/:id',  (req, res) => {
-  Meal.findById(req.params.id)
-    .then( meal => res.json(meal))
+  Item.find({ meal: mongoose.Types.ObjectId(req.params.id) })
+    .then( items => res.json(items))
     .catch( error => res.status(404).json({success: false}));
 });
 

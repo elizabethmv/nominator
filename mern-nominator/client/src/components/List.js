@@ -6,8 +6,8 @@ import Item from './Item';
   <Container>
     <h1>{props.title}</h1>
     <ListGroup>
-      { props.items.map(({ _id, name, typeMeal }, index) => ( 
-        <Item key={_id} id={_id}  name={name} typeMeal={typeMeal}/>
+      { props.items.map(({ _id, name}) => ( 
+        <Item key={_id} id={_id}  name={name}/>
       ))}
     </ListGroup>
   </Container>;
