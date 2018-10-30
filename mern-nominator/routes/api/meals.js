@@ -10,7 +10,9 @@ const Item = require('../../models/Item.js');
 router.get('/', (req, res) => {
   Meal.find()
     .sort({ date: -1 })
-    .then(meals => res.json(meals));
+    .then(meals => {
+      res.json(meals);
+    });
 });
 
 // GET api/meals/:id

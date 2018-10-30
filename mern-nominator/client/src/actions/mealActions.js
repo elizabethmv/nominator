@@ -12,10 +12,28 @@ export const setItemsLoading  = ()  => {
 export const getMeals = () => dispatch => {
   dispatch( setItemsLoading() );
   axios.get('/api/meals')
-    .then( response => dispatch({
-      type: GET_MEALS,
-      payload: response.data 
-    }))
+    .then( response => {
+      dispatch({
+        type: GET_MEALS,
+        payload: response.data
+      })
+      return response.data;
+  })
+  // .then( meals => {
+  //   Promise.all(meals.map( (meal) => {
+  //     axios.get(`/api/meals/${meal._id}`)
+  //       .then( items => {
+  //         const mealWithItems = {items:items.data, ...meal};
+  //         console.log(mealWithItems);
+  //         dispatch({
+  //           type: GET_MEALS,
+  //           payload: mealWithItems
+  //         })
+          
+  //         return mealWithItems
+  //       })
+  //   }))
+  // })
 }
 
 export const getMealItems = (meal) => dispatch => {

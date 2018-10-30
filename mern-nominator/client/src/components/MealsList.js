@@ -8,11 +8,9 @@ import ItemsListDropdown from './ItemsListDropdown';
   <Container>
     <h1>{props.title}</h1>
     <ListGroup>
-      { props.items.map(({ _id, typeMeal, mealItems = [] }) => ( 
+      { props.items.map(({ _id, typeMeal, mealItems = [{_id:_id, name:'Almost'},{_id:_id, name:'You got it'}] }) => ( 
         <div>
           <Meal key={_id} id={_id} typeMeal={typeMeal} mealItems={mealItems} />
-          
-
         </div>
       ))}
     </ListGroup>

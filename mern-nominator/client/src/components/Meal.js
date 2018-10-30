@@ -6,6 +6,7 @@ import { deleteItem } from '../actions/itemActions';
 import ItemsListDropdown from './ItemsListDropdown';
 import LocationDropdown from './LocationDropdown';
 import styled from 'styled-components';
+import List from './List';
 
 
 // import { TransitionGroup } from 'react-transition-group';
@@ -23,6 +24,10 @@ const Box3 = styled.div`
   float: right;
 `;
 
+const Box4 = styled.div`
+  width: 100%;
+`;
+
 // <Display>
   // <TransitionGroup style={Display}>
     // <CSSTransition key={props.id} timeout={100} classNames="fade"> 
@@ -38,6 +43,7 @@ const Meal  = props =>
         </Box>
         <Box>
           {props.typeMeal}
+          <List items={props.mealItems} />
         </Box>
         <Box3>
           <Button
@@ -49,7 +55,11 @@ const Meal  = props =>
             &times;
           </Button>
         </Box3> 
+        
+          
+        
     </ListGroupItem>
+    
   </Display>
 ;
 
