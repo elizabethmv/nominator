@@ -43,7 +43,7 @@ const Meal  = props =>
         </Box>
         <Box>
           {props.typeMeal}
-          <List items={props.mealItems} />
+          <List items={props.items} />
         </Box>
         <Box3>
           <Button

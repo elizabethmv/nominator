@@ -3,12 +3,13 @@ const router = express.Router();
 
 // Item model
 const Item = require('../../models/Item.js');
+const Meal = require('../../models/Meal.js');
 
 // GET api/items
 router.get('/', (req, res) => {
   Item.find()
     .sort({ date: -1 })
-    .then(items => res.json(items))
+    .then(items => res.json(items));
 });
 
 // GET api/items/:id
@@ -19,15 +20,18 @@ router.get('/:id',  (req, res) => {
 });
 
 // POST api/items
-router.post('/', (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-    fridge: req.body.fridge,
-    pantry: req.body.pantry,
-    meal: req.body.meal,
-  });
-  newItem.save().then(item => res.json(item));
-  // fridge.items.push(newItem)
+router.post('/', async (req, res) => {
+  const { name, fridge, pantry, meal } = req.body;
+  const newItem = new Item({ name, fridge, pantry, meal});
+  await newItem.save() 
+
+  if (meal) {
+    const updateMeal = await Meal.findById(meal);
+    updateMeal.items.push(newItem)
+    await updateMeal.save()
+  }
+
+  res.status(201).json(newItem);
 });
 
 // DELETE api/items/:id

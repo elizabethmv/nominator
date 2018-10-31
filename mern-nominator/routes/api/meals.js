@@ -6,9 +6,16 @@ const mongoose = require('mongoose');
 const Meal = require('../../models/Meal.js');
 const Item = require('../../models/Item.js');
 
+// ObjectId("5bcd31ffdcfbdf1294d272e0")
+// ObjectId("5bce721ef6317c10628447f4")
+// ObjectId("5bce7286f6317c10628447f5")
+
+// ObjectId("5bce76a1f6317c10628447f6")
+
 // GET api/meals
 router.get('/', (req, res) => {
   Meal.find()
+    .populate('items')
     .sort({ date: -1 })
     .then(meals => {
       res.json(meals);

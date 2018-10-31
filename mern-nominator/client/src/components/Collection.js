@@ -62,7 +62,7 @@ const Box = styled.div`
         <Box><List title='All' items={items} /></Box>
         <Box><List title='Fridge' items={fridgeItems} /></Box>
         <Box><List title='Pantry' items={pantryItems} /></Box>
-        <Box><MealsList title='Meal' items={meals} /></Box>
+        <Box><MealsList title='Meal' meals={meals} /></Box>
       </Display>
     );
   }

@@ -43,8 +43,8 @@ class ItemsListDropdown extends React.Component {
         <DropdownToggle caret></DropdownToggle>
         <DropdownMenu>
           {
-            items.map( ({ _id , name}) => 
-            <div style={{"float":"left"}}>
+            items.map( ({ _id , name},index) => 
+            <div key={_id} style={{"float":"left"}}>
               <DropdownItem
               
               key={_id}
