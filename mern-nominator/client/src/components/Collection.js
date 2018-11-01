@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import List from './List';
+import MealsList from './MealsList';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getItems, deleteItem, getMeals } from '../actions/itemActions';
-import { getFridgeItems, addItemToFridge } from '../actions/fridgeActions';
-import { getPantryItems, addItemToPantry } from '../actions/pantryActions';
+import { getItems } from '../actions/itemActions';
+import { getFridgeItems } from '../actions/fridgeActions';
+import { getPantryItems } from '../actions/pantryActions';
+import { getMeals } from '../actions/mealActions';
 
 const Display = styled.div`
   display: flex;
@@ -20,53 +22,68 @@ const Box = styled.div`
 
  class Collection extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+      fridgeItems: [] ,
+      pantryItems: [] 
+    }
+  }
+
   componentDidMount() {
     this.props.getItems();
     this.props.getFridgeItems({ _id: "5bcce9e5ce791b117ec60f7c" });
-    this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" })
+    this.props.getPantryItems({ _id: "5bccf0ada1ab9f13df595d27" });
     this.props.getMeals();
-
-    console.log(this.props);
   };
+
+  componentWillReceiveProps(){
+    this.setState(this.props.fridge);
+    this.setState(this.props.pantry);
+  }
 
   onDeleteClick = id => {
     this.props.deleteItem(id);
   };
 
   render() {
-  const { items, meals } = this.props.item;
+    
+  const { items } = this.props.item;
   const { fridgeItems } = this.props.fridge;
   const { pantryItems } = this.props.pantry;
+  const { meals } = this.props.meal;
+
+  // const { fridgeItems, pantryItems } = this.state;
+  // console.log('fridgeItems',fridgeItems, 'pantryItems',pantryItems);
+  
     return (
       <Display>
         <Box><List title='All' items={items} /></Box>
         <Box><List title='Fridge' items={fridgeItems} /></Box>
         <Box><List title='Pantry' items={pantryItems} /></Box>
-        <Box><List title='Meal' items={meals} /></Box>
+        <Box><MealsList title='Meal' meals={meals} /></Box>
       </Display>
     );
   }
 }
 
 Collection.propTypes = {
-  getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   fridge: PropTypes.object.isRequired,
   pantry: PropTypes.object.isRequired,
+  meal: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   item: state.item,
   fridge: state.fridge,
-  pantry: state.pantry
+  pantry: state.pantry,
+  meal: state.meal,
 })
 
 export default connect(mapStateToProps,{ 
-  getItems, 
-  deleteItem, 
+  getItems,  
   getFridgeItems, 
-  addItemToFridge, 
   getPantryItems, 
-  addItemToPantry, 
   getMeals  
 })(Collection);

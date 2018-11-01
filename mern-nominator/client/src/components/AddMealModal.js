@@ -36,8 +36,12 @@ class AddMealModal extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    // Add item via addItemToMeal action
-    // this.props.addItemToMeal(meal, item);
+    const newMeal = {
+      typeMeal: this.state.typeMeal,
+    };
+
+    // Add item via addItem action
+    this.props.addMeal(newMeal);
 
     // Close modal
     this.toggle();

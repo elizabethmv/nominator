@@ -16,15 +16,16 @@ class AddItemModal extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      modal: false,
+      name: '',
+      fridge: null,
+      pantry: null,
+      meal: null,
+    };
   }
 
-  state = {
-    modal: false,
-    name: '',
-    fridge: null,
-    pantry: null,
-    meal: null,
-  };
+  
 
   toggle = () => {
     this.setState({

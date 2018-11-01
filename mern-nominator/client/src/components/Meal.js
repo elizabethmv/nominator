@@ -3,11 +3,11 @@ import { ListGroupItem, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteItem } from '../actions/itemActions';
-import { getMeals } from '../actions/mealActions'
-import LocationDropdown from './LocationDropdown';
 import ItemsListDropdown from './ItemsListDropdown';
+import LocationDropdown from './LocationDropdown';
 import styled from 'styled-components';
-import MealsListDropdown from './MealsListDropdown';
+import List from './List';
+
 
 // import { TransitionGroup } from 'react-transition-group';
 // import { CSSTransition } from 'react-transition-group';
@@ -24,6 +24,10 @@ const Box3 = styled.div`
   float: right;
 `;
 
+const Box4 = styled.div`
+  width: 100%;
+`;
+
 // <Display>
   // <TransitionGroup style={Display}>
     // <CSSTransition key={props.id} timeout={100} classNames="fade"> 
@@ -31,10 +35,17 @@ const Box3 = styled.div`
   // </TransitionGroup>
 // </Display>
 
-const Item  = props =>{
-  return <Display>
+const Meal  = props =>
+  <Display>
     <ListGroupItem>
         <Box>
+          <ItemsListDropdown id={props.id}/>
+        </Box>
+        <Box>
+          {props.typeMeal}
+          <List items={props.items} />
+        </Box>
+        <Box3>
           <Button
             className="remove-btn"
             color="danger"
@@ -43,28 +54,22 @@ const Item  = props =>{
           >
             &times;
           </Button>
-        </Box>
-        <Box>
-          {props.name}
-          {props.typeMeal}
-        </Box>
-        <Box3>
-          <LocationDropdown id={props.id} />
-          <MealsListDropdown id={props.id} />
         </Box3> 
+        
+          
+        
     </ListGroupItem>
+    
   </Display>
-}
+;
 
-Item.propTypes = {
+Meal.propTypes = {
   // deleteItem: PropTypes.object.isRequired,
-  item: PropTypes.object.isRequired,
   meal: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  item: state.item,
-  meal: state.item,
+  meal: state.meal
 })
   
-export default connect(mapStateToProps,{ deleteItem, getMeals })(Item);
+export default connect(mapStateToProps,{ deleteItem })(Meal);

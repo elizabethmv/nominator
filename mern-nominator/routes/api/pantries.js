@@ -33,21 +33,19 @@ router.post('/', (req, res) => {
 });
 
 // PATCH api/pantries/:id
-router.patch('/:id', (req, res) => {
-  console.log(req.body);
-  console.log(req.params.id);
-  console.log(req.body._id);
-  Item.updateOne(
-    { "_id" : mongoose.Types.ObjectId(req.body._id) }, 
+// PATCH api/fridges/:id
+router.patch('/:id', async (req, res) => {
+  return await Item.findByIdAndUpdate(
+    req.body._id , 
     { 
-      $set: { 
-        "fridge" : null,
-        "pantry" : mongoose.Types.ObjectId(req.params.id),
-        "meal" : null,
-      } 
-    })
-    .then(() => Item.find({ pantry: mongoose.Types.ObjectId(req.params.id) }))
-    .catch( error => res.status(404).json({success: false}));
+      "fridge" : null,
+      "pantry" : mongoose.Types.ObjectId(req.params.id),
+      "meal" : null
+    },
+    {new: true}
+  )
+  .then(item => res.json(item))
+  .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/pantries/:id

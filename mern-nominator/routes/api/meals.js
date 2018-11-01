@@ -9,14 +9,17 @@ const Item = require('../../models/Item.js');
 // GET api/meals
 router.get('/', (req, res) => {
   Meal.find()
+    .populate('items')
     .sort({ date: -1 })
-    .then(meals => res.json(meals));
+    .then(meals => {
+      res.json(meals);
+    });
 });
 
 // GET api/meals/:id
 router.get('/:id',  (req, res) => {
-  Meal.findById(req.params.id)
-    .then( meal => res.json(meal))
+  Item.find({ meal: mongoose.Types.ObjectId(req.params.id) })
+    .then( items => res.json(items))
     .catch( error => res.status(404).json({success: false}));
 });
 
@@ -30,21 +33,18 @@ router.post('/', (req, res) => {
 });
 
 // PATCH api/meals/:id
-router.patch('/:id', (req, res) => {
-  console.log(req.body);
-  console.log(req.params.id);
-  console.log(req.body._id);
-  Item.updateOne(
-    { "_id" : mongoose.Types.ObjectId(req.body._id) }, 
+router.patch('/:id', async (req, res) => {
+  return await Item.findByIdAndUpdate(
+    req.body._id , 
     { 
-      $set: { 
-        "fridge" : null,
-        "pantry" : null,
-        "meal" : mongoose.Types.ObjectId(req.params.id),
-      } 
-    })
-    .then(() => Item.find({ meal: mongoose.Types.ObjectId(req.params.id) }))
-    .catch( error => res.status(404).json({success: false}));
+      "fridge" : null,
+      "pantry" : null,
+      "meal" : mongoose.Types.ObjectId(req.params.id),
+    },
+    {new: true}
+  )
+  .then(item => res.json(item))
+  .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/meals/:id

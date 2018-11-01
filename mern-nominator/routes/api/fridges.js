@@ -10,8 +10,10 @@ const Item = require('../../models/Item.js');
 router.get('/', (req, res) => {
   Fridge.find()
     // .populate('Item')
+    // .populate('items')
     .sort({ date: -1 })
     .then(fridges => res.json(fridges));
+    
 });
 
 // GET api/fridges/:id
@@ -34,25 +36,18 @@ router.post('/:id', (req, res) => {
 });
 
 // PATCH api/fridges/:id
-router.patch('/:id', (req, res) => {
-  console.log(req.body);
-  console.log(req.params.id);
-  console.log(req.body._id);
-  Item.updateOne(
-    { "_id" : mongoose.Types.ObjectId(req.body._id) }, 
+router.patch('/:id', async (req, res) => {
+  return await Item.findByIdAndUpdate(
+    req.body._id , 
     { 
-      $set: { 
-        "fridge" : mongoose.Types.ObjectId(req.params.id),
-        "pantry" : null,
-        "meal" : null,
-      } 
-    })
-    .then(() => Item.find({ fridge: mongoose.Types.ObjectId(req.params.id) }))
-    .catch( error => res.status(404).json({success: false}));
-
-  // Fridge.findById(req.body.item._id)
-  //   .then( fridge => console.log( ).then( () => res.json({success: true})) )
-  //   .catch( error => res.status(404).json({success: false}));
+      "fridge" : mongoose.Types.ObjectId(req.params.id),
+      "pantry" : null,
+      "meal" : null
+    },
+    {new: true}
+  )
+  .then(item => res.json(item))
+  .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/fridges/:id

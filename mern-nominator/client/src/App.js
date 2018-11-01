@@ -38,11 +38,8 @@ class App extends Component {
               <Box><AddItemModal name='Add Item'/></Box>
               <Box><AddMealModal name='Add Meal'/></Box>
             </Display>
-
             <Collection />
-
           </Main>
-          
           <h6 style={{textAlign:'center', marginTop: '2rem'}}>Welcome! to the Nominator App, Where you can add items or delete them, is up to you to decide.</h6>
         </div>
       </Provider> 
