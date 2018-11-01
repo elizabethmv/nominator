@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { ITEMS_LOADING, GET_ITEMS, ADD_ITEM, DELETE_ITEM, GET_PANTRY_ITEMS, GET_MEALS } from './types';
+import { 
+  ITEMS_LOADING, 
+  GET_ITEMS, 
+  ADD_ITEM, 
+  DELETE_ITEM, 
+} from './types';
+import { addItemToMeal } from './mealActions';
 
 export const setItemsLoading  = ()  => {
   return {
@@ -19,12 +25,26 @@ export const getItems = () => dispatch => {
 export const addItem = item  => dispatch => {
   axios 
     .post('/api/items', item)
-    .then( response => 
+    .then( response => {
+
+      const newItem = response.data;
       dispatch({
         type: ADD_ITEM,
-         payload: response.data 
+         payload: newItem 
       })  
-    )
+
+      if(newItem.fridge){
+        
+      }
+      if(newItem.pantry){
+        
+      }
+      if(newItem.meal){
+        console.log('addItem meal id',newItem.meal)
+        dispatch( addItemToMeal( {_id: newItem.meal }, newItem ) );
+      }
+      
+    })
 }
 
 export const deleteItem = id => dispatch => {
@@ -35,22 +55,4 @@ export const deleteItem = id => dispatch => {
         payload: id
       })
     })
-}
-
-export const getPantryItems = (pantry) => dispatch => {
-  dispatch( setItemsLoading() );
-  axios.get(`/api/pantries/${pantry._id}`)
-    .then( response => dispatch({
-      type: GET_PANTRY_ITEMS,
-      payload: response.data 
-    }))
-}
-
-export const getMeals = () => dispatch => {
-  dispatch( setItemsLoading() );
-  axios.get('/api/meals')
-    .then( response => dispatch({
-      type: GET_MEALS,
-      payload: response.data 
-    }))
 }

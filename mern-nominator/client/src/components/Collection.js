@@ -52,7 +52,6 @@ const Box = styled.div`
   const { fridgeItems } = this.props.fridge;
   const { pantryItems } = this.props.pantry;
   const { meals } = this.props.meal;
-  console.log('meals',meals);
 
   // const { fridgeItems, pantryItems } = this.state;
   // console.log('fridgeItems',fridgeItems, 'pantryItems',pantryItems);

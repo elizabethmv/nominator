@@ -25,14 +25,20 @@ export default function(state = initialState, action) {
         loading: false 
       }
     case  ADD_ITEM_TO_MEAL:
-      let meals = state.meals.filter( item => {
-        return item._id !== action.payload._id
-      })
+      const meals = state.meals.map( meal => {
+        if (meal._id === action.payload.meal) {
+          meal.items.push(action.payload)
+        }
+        return meal
+      });
 
+      console.log('ADD_ITEM_TO_MEAL', meals);
+      
       return {
         ...state,
-        meals: [action.payload, ...meals]
+        meals: meals
       }
+
     case  DELETE_ITEM_FROM_MEAL:
       return {
         ...state,

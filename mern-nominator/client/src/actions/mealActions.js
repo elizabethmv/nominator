@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { MEALS_LOADING, GET_MEALS, MEAL_ITEMS_LOADING, GET_MEAL_ITEMS, ADD_ITEM_TO_MEAL, DELETE_ITEM_FROM_MEAL} from './types';
+import { 
+  MEALS_LOADING, 
+  GET_MEALS, 
+  MEAL_ITEMS_LOADING, 
+  GET_MEAL_ITEMS, 
+  ADD_ITEM_TO_MEAL, 
+  DELETE_ITEM_FROM_MEAL
+} from './types';
 import { deleteItemFromPantry } from './pantryActions';
 import { deleteItemFromFridge } from './fridgeActions';
 
@@ -47,8 +54,9 @@ export const getMealItems = (meal) => dispatch => {
 
 export const addItemToMeal = (meal, item)  => dispatch => {
   axios 
-    .post(`/api/meals/${meal._id}`, item)
+    .patch(`/api/meals/${meal._id}`, item)
     .then( response => {
+      console.log('addItemToMeal',response.data);
       dispatch({ type: ADD_ITEM_TO_MEAL, payload: response.data })
       dispatch( deleteItemFromFridge(item) );
       dispatch( deleteItemFromPantry(item) );

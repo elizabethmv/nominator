@@ -6,12 +6,6 @@ const mongoose = require('mongoose');
 const Meal = require('../../models/Meal.js');
 const Item = require('../../models/Item.js');
 
-// ObjectId("5bcd31ffdcfbdf1294d272e0")
-// ObjectId("5bce721ef6317c10628447f4")
-// ObjectId("5bce7286f6317c10628447f5")
-
-// ObjectId("5bce76a1f6317c10628447f6")
-
 // GET api/meals
 router.get('/', (req, res) => {
   Meal.find()
@@ -39,21 +33,18 @@ router.post('/', (req, res) => {
 });
 
 // PATCH api/meals/:id
-router.patch('/:id', (req, res) => {
-  console.log(req.body);
-  console.log(req.params.id);
-  console.log(req.body._id);
-  Item.updateOne(
-    { "_id" : mongoose.Types.ObjectId(req.body._id) }, 
+router.patch('/:id', async (req, res) => {
+  return await Item.findByIdAndUpdate(
+    req.body._id , 
     { 
-      $set: { 
-        "fridge" : null,
-        "pantry" : null,
-        "meal" : mongoose.Types.ObjectId(req.params.id),
-      } 
-    })
-    .then(() => Item.find({ meal: mongoose.Types.ObjectId(req.params.id) }))
-    .catch( error => res.status(404).json({success: false}));
+      "fridge" : null,
+      "pantry" : null,
+      "meal" : mongoose.Types.ObjectId(req.params.id),
+    },
+    {new: true}
+  )
+  .then(item => res.json(item))
+  .catch( error => res.status(404).json({success: false}));
 });
 
 // DELETE api/meals/:id
