@@ -3,7 +3,11 @@ import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reac
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToFridge } from '../actions/fridgeActions';
-import { addItemToPantry, getPantryItems, deleteItemFromPantry } from '../actions/pantryActions';
+import { 
+  addItemToPantry, 
+  getPantryItems, 
+  deleteItemFromPantry 
+} from '../actions/pantryActions';
 
 class LocationDropdown extends React.Component {
   constructor(props) {
@@ -14,7 +18,7 @@ class LocationDropdown extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
-    this.onClickDropdownItem = this.onClickDropdownItem.bind(this);
+    this.onClickDropdown = this.onClickDropdown.bind(this);
   }
 
   componentDidMount(){
@@ -27,16 +31,13 @@ class LocationDropdown extends React.Component {
     });
   }
 
-  async onClickDropdownItem(e) {
+  async onClickDropdown(e) {
     switch (e.target.name) {
       case 'fridge':
         this.props.addItemToFridge({ _id: "5bcce9e5ce791b117ec60f7c" }, { _id: this.props.id })
         break;
       case 'pantry':
         this.props.addItemToPantry({ _id: "5bccf0ada1ab9f13df595d27" }, { _id: this.props.id });
-        break;
-      case 'meal':
-        // this.props.addItemToMeal({ _id: this.props.meal.id }, { _id: this.props.id });
         break;
       default:
         break;
@@ -50,15 +51,12 @@ class LocationDropdown extends React.Component {
         <DropdownMenu>
           <DropdownItem
             name='fridge'
-            onClick={this.onClickDropdownItem}
+            onClick={this.onClickDropdown}
           >Fridge</DropdownItem>
           <DropdownItem
             name='pantry'
-            onClick={this.onClickDropdownItem}
+            onClick={this.onClickDropdown}
           >Pantry</DropdownItem>
-          <DropdownItem
-            name='meal'
-          >Meal</DropdownItem>
         </DropdownMenu>
       </ButtonDropdown>
     );
