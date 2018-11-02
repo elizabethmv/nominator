@@ -25,8 +25,6 @@ class AddItemModal extends Component {
     };
   }
 
-  
-
   toggle = () => {
     this.setState({
       modal: !this.state.modal

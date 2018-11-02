@@ -51,11 +51,9 @@ export default function(state = initialState, action) {
 
     case  DELETE_ITEM_FROM_MEAL:
         const meals2 = state.meals.map( meal => {
-          if (meal._id === action.payload.meal) {
-            meal.items = meal.items.filter(item => {
-              return item._id !== action.payload._id
-            })
-          }
+          meal.items = meal.items.filter(item => {
+            return item._id !== action.payload._id
+          })
           return meal
         });
 
