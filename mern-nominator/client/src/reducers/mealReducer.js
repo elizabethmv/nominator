@@ -1,4 +1,11 @@
-import { MEAL_ITEMS_LOADING, GET_MEALS, GET_MEAL_ITEMS, ADD_ITEM_TO_MEAL, DELETE_ITEM_FROM_MEAL } from '../actions/types';
+import { 
+  MEAL_ITEMS_LOADING,
+  GET_MEALS,
+  GET_MEAL_ITEMS,
+  ADD_MEAL,
+  ADD_ITEM_TO_MEAL, 
+  DELETE_ITEM_FROM_MEAL
+} from '../actions/types';
 
 const initialState = {
   meals: [{items:[]}],
@@ -24,6 +31,11 @@ export default function(state = initialState, action) {
         // meals: [...state]action.payload,
         loading: false 
       }
+    case  ADD_MEAL:
+      return {
+        ...state,
+        meals: [action.payload, ...state.meals],
+      }
     case  ADD_ITEM_TO_MEAL:
       const meals = state.meals.map( meal => {
         if (meal._id === action.payload.meal) {
@@ -31,8 +43,6 @@ export default function(state = initialState, action) {
         }
         return meal
       });
-
-      console.log('ADD_ITEM_TO_MEAL', meals);
       
       return {
         ...state,
@@ -40,12 +50,22 @@ export default function(state = initialState, action) {
       }
 
     case  DELETE_ITEM_FROM_MEAL:
-      return {
-        ...state,
-        meals: state.meals.filter(item => {
-          return item._id !== action.payload._id
-        })
-      }
+        const meals2 = state.meals.map( meal => {
+          if (meal._id === action.payload.meal) {
+            meal.items = meal.items.filter(item => {
+              return item._id !== action.payload._id
+            })
+          }
+          return meal
+        });
+
+        console.log('DELETE_ITEM_FROM_MEAL', meals2);
+        
+        return {
+          ...state,
+          meals: meals2
+        }  
+
     default:
       return state;
   }

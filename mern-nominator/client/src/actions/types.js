@@ -17,5 +17,6 @@ export const MEALS_LOADING = 'MEALS_LOADING';
 export const MEAL_ITEMS_LOADING = 'MEAL_ITEMS_LOADING';
 export const GET_MEALS = 'GET_MEALS';
 export const GET_MEAL_ITEMS = 'GET_MEAL_ITEMS';
+export const ADD_MEAL = 'ADD_MEAL';
 export const ADD_ITEM_TO_MEAL = 'ADD_ITEM_TO_MEAL';
 export const DELETE_ITEM_FROM_MEAL = 'DELETE_ITEM_FROM_MEAL';

@@ -10,7 +10,7 @@ import {
   Input
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { addItem } from '../actions/itemActions';
+import { addMeal } from '../actions/mealActions';
 
 class AddMealModal extends Component {
 
@@ -18,7 +18,7 @@ class AddMealModal extends Component {
     super(props);
     this.state = {
       modal: false,
-      name: '',
+      typeMeal: '',
       items: [],
     };
   }
@@ -41,6 +41,7 @@ class AddMealModal extends Component {
     };
 
     // Add item via addItem action
+    console.log('newMeal', newMeal);
     this.props.addMeal(newMeal);
 
     // Close modal
@@ -63,11 +64,11 @@ class AddMealModal extends Component {
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Meal</Label>
+                <Label for="meal">Meal</Label>
                 <Input
                   type="text"
-                  name="name"
-                  id="item"
+                  name="typeMeal"
+                  id="meal"
                   placeholder="Name your meal, Lunch?"
                   onChange={this.onChange}
                 />
@@ -84,10 +85,10 @@ class AddMealModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item
+  meal: state.meal
 });
 
 export default connect(
   mapStateToProps,
-  { addItem }
+  { addMeal }
 )(AddMealModal);
