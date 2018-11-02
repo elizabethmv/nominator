@@ -59,7 +59,9 @@ router.patch('/:id', async (req, res) => {
 
   console.log('items',items, 'updatedItems',updatedItems);
 
-  await lastUpdatedMeal.updateOne( { items: updatedItems } );
+  await lastUpdatedMeal.updateOne( { items: lastUpdatedMeal.items.filter(  mealItem => {
+    return String(mealItem._id) !== String(item._id)
+  }) } );
 
   return res.json(item);
 });
