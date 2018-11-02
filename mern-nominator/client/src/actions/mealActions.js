@@ -4,6 +4,7 @@ import {
   GET_MEALS, 
   MEAL_ITEMS_LOADING, 
   GET_MEAL_ITEMS, 
+  ADD_MEAL, 
   ADD_ITEM_TO_MEAL, 
   DELETE_ITEM_FROM_MEAL
 } from './types';
@@ -26,21 +27,6 @@ export const getMeals = () => dispatch => {
       })
       return response.data;
   })
-  // .then( meals => {
-  //   Promise.all(meals.map( (meal) => {
-  //     axios.get(`/api/meals/${meal._id}`)
-  //       .then( items => {
-  //         const mealWithItems = {items:items.data, ...meal};
-  //         console.log(mealWithItems);
-  //         dispatch({
-  //           type: GET_MEALS,
-  //           payload: mealWithItems
-  //         })
-          
-  //         return mealWithItems
-  //       })
-  //   }))
-  // })
 }
 
 export const getMealItems = (meal) => dispatch => {
@@ -52,7 +38,16 @@ export const getMealItems = (meal) => dispatch => {
     }))
 }
 
+export const addMeal = meal => dispatch => {
+  axios
+    .post(`/api/meals`,meal)
+    .then( response => {
+      dispatch( { type: ADD_MEAL, payload: response.data } );
+    })
+}
+
 export const addItemToMeal = (meal, item)  => dispatch => {
+  dispatch( deleteItemFromMeal(item) );
   axios 
     .patch(`/api/meals/${meal._id}`, item)
     .then( response => {
@@ -63,8 +58,8 @@ export const addItemToMeal = (meal, item)  => dispatch => {
     })
 }
 
-export const deleteItemFromMeal = (meal, item) => ({
+export const deleteItemFromMeal = item => ({
   type: DELETE_ITEM_FROM_MEAL,
-  payload: {meal, item}
+  payload: item
 })
 
