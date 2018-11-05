@@ -47,15 +47,14 @@ export const addMeal = meal => dispatch => {
 }
 
 export const addItemToMeal = (meal, item)  => dispatch => {
-  
+  dispatch( deleteItemFromFridge(item) );
+  dispatch( deleteItemFromPantry(item) );
   dispatch( deleteItemFromMeal(item) );
+  
   axios 
     .patch(`/api/meals/${meal._id}`, item)
     .then( response => {
-      console.log('item', response.data);
-      dispatch({ type: ADD_ITEM_TO_MEAL, payload: response.data })
-      dispatch( deleteItemFromFridge(item) );
-      dispatch( deleteItemFromPantry(item) );
+      dispatch({ type: ADD_ITEM_TO_MEAL, payload: response.data });
     })
 }
 

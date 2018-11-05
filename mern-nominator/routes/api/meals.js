@@ -34,36 +34,37 @@ router.post('/', (req, res) => {
 
 // PATCH api/meals/:id
 router.patch('/:id', async (req, res) => {
-
   const item = await Item.findById(req.body._id);
-  const lastMealID = item.meal;
-  console.log('item',item);
-  // console.log('lastMealID',lastMealID);
 
-  console.log('req.params.id', req.params.id)
-  await item.updateOne({"meal":mongoose.Types.ObjectId(req.params.id)});
-  // console.log('item updated',item);
-
+  if (item.meal) {
+    const lastMealID = item.meal;
+    const lastUpdatedMeal = await Meal.findById(lastMealID);
+    let items = lastUpdatedMeal.items;
+    let updatedItems = items.filter(  mealItem => {
+      return String(mealItem._id) !== String(item._id);
+    });
+    await lastUpdatedMeal.updateOne( { items:  updatedItems } );
+    await lastUpdatedMeal.save();
+  } 
+  
+  await item.updateOne({
+    "fridge" : null,
+    "pantry" : null,
+    "meal":mongoose.Types.ObjectId(req.params.id)
+  });
+  
   const updatedMeal = await Meal.findById(req.params.id);
-  updatedMeal.items.push(item)
-  await updatedMeal.save()
-  // console.log('updatedMeal', updatedMeal);
+  updatedMeal.items.push(item);
+  await updatedMeal.save();
+  
+  let meals = await Meal.find()
+                      .populate('items')
+                      .sort({ date: -1 })
+                      .then(meals => {
+                        res.json(meals);
+                      });
 
-  const lastUpdatedMeal = await Meal.findById(lastMealID);
-  console.log('lastUpdatedMeal.items', lastUpdatedMeal.items);
-  let items = lastUpdatedMeal.items
-
-  let updatedItems = items.filter(  mealItem => {
-    return String(mealItem._id) !== String(item._id)
-  })
-
-  console.log('items',items, 'updatedItems',updatedItems);
-
-  await lastUpdatedMeal.updateOne( { items: lastUpdatedMeal.items.filter(  mealItem => {
-    return String(mealItem._id) !== String(item._id)
-  }) } );
-
-  return res.json(item);
+  return res.json(meals);
 });
 
 // DELETE api/meals/:id

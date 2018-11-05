@@ -7,6 +7,7 @@ import {
 } from './types';
 
 import { deleteItemFromPantry } from './pantryActions';
+import { deleteItemFromMeal } from './mealActions';
 
 export const setFridgeItemsLoading  = ()  => {
   return {
@@ -33,6 +34,7 @@ export const addItemToFridge = (fridge, item) => dispatch => {
         payload: response.data
       })
       dispatch( deleteItemFromPantry(item) );
+      dispatch( deleteItemFromMeal(item) );
     })
 }
 

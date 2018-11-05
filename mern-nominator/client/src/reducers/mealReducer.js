@@ -37,32 +37,30 @@ export default function(state = initialState, action) {
         meals: [action.payload, ...state.meals],
       }
     case  ADD_ITEM_TO_MEAL:
-      const meals = state.meals.map( meal => {
-        if (meal._id === action.payload.meal) {
-          meal.items.push(action.payload)
-        }
-        return meal
-      });
+      // const meals = state.meals.map( meal => {
+      //   if (meal._id === action.payload.meal) {
+      //     meal.items.push(action.payload)
+      //   }
+      //   return meal
+      // });
       
       return {
         ...state,
-        meals: meals
+        meals: action.payload
       }
 
     case  DELETE_ITEM_FROM_MEAL:
-        const meals2 = state.meals.map( meal => {
-          meal.items = meal.items.filter(item => {
-            return item._id !== action.payload._id
-          })
-          return meal
-        });
-
-        console.log('DELETE_ITEM_FROM_MEAL', meals2);
-        
-        return {
-          ...state,
-          meals: meals2
-        }  
+      return {
+        ...state,
+        meals: state.meals.map( meal => {
+          const items = meal.items.filter(item => {
+            return  item._id !== action.payload._id
+          })   
+          meal.items = items;
+          console.log(meal);
+          return meal;  
+        })
+      }  
 
     default:
       return state;

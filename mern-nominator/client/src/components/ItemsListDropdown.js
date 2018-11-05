@@ -3,7 +3,7 @@ import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reac
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
-import LocationDropdown from './LocationDropdown';
+import { addItemToMeal } from '../actions/mealActions';
 
 class ItemsListDropdown extends React.Component {
   constructor(props) {
@@ -26,10 +26,10 @@ class ItemsListDropdown extends React.Component {
     });
   }
 
-  async onClickDropdown(e) {
+  onClickDropdown(e) {
     switch (e.target.name) {
       case 'item':
-        this.props.addItemToMeal({ _id: this.props.id }, { _id: e.target.id  })
+        this.props.addItemToMeal( {_id: this.props.id}, { _id: e.target.id } )
         break;
       default:
         break;
@@ -65,12 +65,15 @@ class ItemsListDropdown extends React.Component {
 
 ItemsListDropdown.propTypes = {
   item: PropTypes.object.isRequired,
+  meal: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   item: state.item,
+  meal: state.meal,
 })
   
 export default connect(mapStateToProps,{ 
   getItems,
+  addItemToMeal,
 })(ItemsListDropdown);

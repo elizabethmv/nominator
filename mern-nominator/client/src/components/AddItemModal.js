@@ -78,7 +78,7 @@ class AddItemModal extends Component {
                   placeholder="Add shopping item"
                   onChange={this.onChange}
                 />
-                <Input
+                {/* <Input
                   type="text"
                   name="fridge"
                   id="fridge"
@@ -98,7 +98,7 @@ class AddItemModal extends Component {
                   id="meal"
                   placeholder="Add meal id"
                   onChange={this.onChange}
-                />
+                /> */}
                 <Button color="dark" style={{ marginTop: '2rem' }} block>
                   {this.props.name}
                 </Button>
