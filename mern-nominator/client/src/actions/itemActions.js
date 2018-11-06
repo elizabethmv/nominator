@@ -7,6 +7,10 @@ import {
 } from './types';
 import { addItemToMeal } from './mealActions';
 
+import { deleteItemFromMeal } from './mealActions';
+import { deleteItemFromFridge } from './fridgeActions';
+import { deleteItemFromPantry } from './pantryActions';
+
 export const setItemsLoading  = ()  => {
   return {
     type: ITEMS_LOADING
@@ -47,12 +51,12 @@ export const addItem = item  => dispatch => {
     })
 }
 
-export const deleteItem = id => dispatch => {
-  axios.delete(`/api/items/${id}`)
+export const deleteItem = item => dispatch => {
+  axios.delete(`/api/items/${item._id}`)
     .then( response => {
-      dispatch({
-        type: DELETE_ITEM,
-        payload: id
-      })
+      dispatch({ type: DELETE_ITEM, payload: item });
+      dispatch( deleteItemFromMeal(item) );
+      dispatch( deleteItemFromFridge(item) );
+      dispatch( deleteItemFromPantry(item) );
     })
 }

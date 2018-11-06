@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { deleteItem } from '../actions/itemActions';
 import { getMeals } from '../actions/mealActions'
 import LocationDropdown from './LocationDropdown';
-import ItemsListDropdown from './ItemsListDropdown';
 import styled from 'styled-components';
 import MealsListDropdown from './MealsListDropdown';
 
@@ -39,7 +38,7 @@ const Item  = props =>{
             className="remove-btn"
             color="danger"
             size="sm"
-            onClick={() => props.deleteItem(props.id)}
+            onClick={() => props.deleteItem( { _id: props.id } )}
           >
             &times;
           </Button>

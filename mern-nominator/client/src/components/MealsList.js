@@ -1,8 +1,6 @@
 import React from 'react';
 import { Container, ListGroup } from 'reactstrap';
 import Meal from './Meal';
-import List from './List';
-import ItemsListDropdown from './ItemsListDropdown';
 
  const MealsList = props =>
   <Container>

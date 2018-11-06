@@ -1,17 +1,24 @@
 import axios from 'axios';
 import { 
   MEALS_LOADING, 
+  MEAL_ITEMS_LOADING,
   GET_MEALS, 
-  MEAL_ITEMS_LOADING, 
   GET_MEAL_ITEMS, 
   ADD_MEAL, 
   ADD_ITEM_TO_MEAL, 
-  DELETE_ITEM_FROM_MEAL
+  DELETE_ITEM_FROM_MEAL,
+  DELETE_MEAL
 } from './types';
 import { deleteItemFromPantry } from './pantryActions';
 import { deleteItemFromFridge } from './fridgeActions';
 
 export const setItemsLoading  = ()  => {
+  return {
+    type: MEAL_ITEMS_LOADING
+  }
+}
+
+export const setMealItemsLoading  = ()  => {
   return {
     type: MEALS_LOADING
   }
@@ -62,4 +69,12 @@ export const deleteItemFromMeal = item => ({
   type: DELETE_ITEM_FROM_MEAL,
   payload: item
 })
+
+export const deleteMeal = meal => dispatch => {
+  axios 
+    .delete(`/api/meals/${meal._id}`)
+    .then( response => {
+      dispatch({ type: DELETE_MEAL, payload: meal })
+    })
+}
 

@@ -7,6 +7,7 @@ const items = require('./routes/api/items.js');
 const fridges = require('./routes/api/fridges.js');
 const pantries = require('./routes/api/pantries.js');
 const meals = require('./routes/api/meals.js');
+const recipes = require('./routes/api/recipes.js');
 // app test
 const app = express();
  
@@ -27,6 +28,7 @@ app.use('/api/items', items);
 app.use('/api/fridges', fridges);
 app.use('/api/pantries', pantries);
 app.use('/api/meals', meals);
+app.use('/api/recipes', recipes);
 
 
 // server static assets if in production

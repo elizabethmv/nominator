@@ -4,7 +4,8 @@ import {
   GET_MEAL_ITEMS,
   ADD_MEAL,
   ADD_ITEM_TO_MEAL, 
-  DELETE_ITEM_FROM_MEAL
+  DELETE_ITEM_FROM_MEAL,
+  DELETE_MEAL,
 } from '../actions/types';
 
 const initialState = {
@@ -61,6 +62,12 @@ export default function(state = initialState, action) {
           return meal;  
         })
       }  
+
+      case  DELETE_MEAL:
+      return {
+        ...state,
+        meals: state.meals.filter( meal => meal._id !== action.payload._id)
+      }
 
     default:
       return state;

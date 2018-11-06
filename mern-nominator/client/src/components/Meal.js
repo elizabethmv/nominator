@@ -2,9 +2,8 @@ import React from 'react';
 import { ListGroupItem, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteItem } from '../actions/itemActions';
+import { deleteMeal } from '../actions/mealActions';
 import ItemsListDropdown from './ItemsListDropdown';
-import LocationDropdown from './LocationDropdown';
 import styled from 'styled-components';
 import List from './List';
 
@@ -24,9 +23,9 @@ const Box3 = styled.div`
   float: right;
 `;
 
-const Box4 = styled.div`
-  width: 100%;
-`;
+// const Box4 = styled.div`
+//   width: 100%;
+// `;
 
 // <Display>
   // <TransitionGroup style={Display}>
@@ -50,21 +49,15 @@ const Meal  = props =>
             className="remove-btn"
             color="danger"
             size="sm"
-            onClick={() => props.deleteItem(props.id)}
+            onClick={() => props.deleteMeal({_id: props.id})}
           >
             &times;
           </Button>
         </Box3> 
-        
-          
-        
     </ListGroupItem>
-    
-  </Display>
-;
+  </Display>;
 
 Meal.propTypes = {
-  // deleteItem: PropTypes.object.isRequired,
   meal: PropTypes.object.isRequired,
 }
 
@@ -72,4 +65,4 @@ const mapStateToProps = (state) => ({
   meal: state.meal
 })
   
-export default connect(mapStateToProps,{ deleteItem })(Meal);
+export default connect( mapStateToProps, { deleteMeal } )(Meal);
