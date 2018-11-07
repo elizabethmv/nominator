@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import axios from 'axios';
+import Recipe from './Recipe';
 
 class ShowRecipesModal extends Component {
   constructor(props){
@@ -44,6 +45,7 @@ class ShowRecipesModal extends Component {
   render() {
     this.getRecipes();
     const { recipes } = this.state;
+    console.log(recipes);
     return (
       <div>
         <Button
@@ -58,7 +60,17 @@ class ShowRecipesModal extends Component {
           <ModalBody>
             <ul>
               {
-                recipes.map( (recipe, index) => <li key={index} >{recipe.title}</li>)
+                recipes.map( (recipe, index) => 
+                  <Recipe
+                    style={{'float':'left'}}
+                    key={index}
+                    id={index}  
+                    title={recipe.title} 
+                    href={recipe.href} 
+                    ingredients={recipe.ingredients}
+                    thumbnail={recipe.thumbnail}
+                  />
+                )
               }
             </ul>
           </ModalBody>
