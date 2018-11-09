@@ -49,7 +49,7 @@ class AddItemModal extends Component {
 
     // Add item via addItem action
     this.props.addItem(newItem);
-
+    
     // Close modal
     this.toggle();
   };

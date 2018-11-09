@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
   const array = req.body.map( item => item.name);
   const items = array.join();
   const amount = array.length;
-  const uri = `http://www.recipepuppy.com/api/?i=${items}&p=${amount}`;
+  const uri = `http://www.recipepuppy.com/api/?i=${items}&p=${4}`;
   console.log(uri);
   request({
     uri: uri,
