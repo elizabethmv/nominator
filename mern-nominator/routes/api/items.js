@@ -21,17 +21,28 @@ router.get('/:id',  (req, res) => {
 
 // POST api/items
 router.post('/', async (req, res) => {
-  const { name, fridge, pantry, meal } = req.body;
-  const newItem = new Item({ name, fridge, pantry, meal});
-  await newItem.save() 
-
-  if (meal) {
-    const updateMeal = await Meal.findById(meal);
-    updateMeal.items.push(newItem)
-    await updateMeal.save()
+  const { name, fridge, pantry, meal, ingredients } = req.body;
+  
+  if(!ingredients){
+    const newItem = new Item({ name, fridge, pantry, meal});
+    await newItem.save();
+    if (meal) {
+      const updateMeal = await Meal.findById(meal);
+      updateMeal.items.push(newItem)
+      await updateMeal.save()
+    }
+    res.status(201).json(newItem);
   }
-
-  res.status(201).json(newItem);
+  else if( ingredients ){
+    res.status(201).json(
+      ingredients.map( async ingredient => {
+        console.log(ingredient);
+        const newItem = new Item({ 'name':ingredient, 'fridge':null, 'pantry':null, 'meal':null })
+        await newItem.save();
+        return newItem
+      })
+    )
+  }
 });
 
 // DELETE api/items/:id

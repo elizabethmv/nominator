@@ -45,7 +45,7 @@ class ShowRecipesModal extends Component {
   render() {
     this.getRecipes();
     const { recipes } = this.state;
-    console.log(recipes);
+    const { items } = this.props.item;
     return (
       <div>
         <Button
@@ -55,25 +55,27 @@ class ShowRecipesModal extends Component {
         >
           {this.props.name}
         </Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal style={{'flexD irection':'row'}} isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Possible Recipes</ModalHeader>
-          <ModalBody>
-            <ul>
+            <div>
+      
+            </div>
               {
                 recipes.map( (recipe, index) => 
-                  <Recipe
-                    style={{'float':'left'}}
-                    key={index}
-                    id={index}  
-                    title={recipe.title} 
-                    href={recipe.href} 
-                    ingredients={recipe.ingredients}
-                    thumbnail={recipe.thumbnail}
-                  />
+                  <ModalBody key={index} style={{'border':'1px black solid'}}>
+                    <Recipe
+                      style={{  'flex': '1 1 1' }}
+                      key={index}
+                      id={index}  
+                      title={recipe.title} 
+                      href={recipe.href} 
+                      ingredients={recipe.ingredients}
+                      thumbnail={recipe.thumbnail}
+                      items={items}
+                    />
+                  </ModalBody>
                 )
               }
-            </ul>
-          </ModalBody>
         </Modal>
       </div>
     );
