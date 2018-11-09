@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import ShowRecipesModal from './components/ShowRecipesModal';
 
 const Display = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ class App extends Component {
           <Main>
             <Display>
               <Box><AddItemModal name='Add Item'/></Box>
+              <Box><ShowRecipesModal name='Show Recipes'/></Box>
               <Box><AddMealModal name='Add Meal'/></Box>
             </Display>
             <Collection />

@@ -34,17 +34,37 @@ router.post('/', (req, res) => {
 
 // PATCH api/meals/:id
 router.patch('/:id', async (req, res) => {
-  return await Item.findByIdAndUpdate(
-    req.body._id , 
-    { 
-      "fridge" : null,
-      "pantry" : null,
-      "meal" : mongoose.Types.ObjectId(req.params.id),
-    },
-    {new: true}
-  )
-  .then(item => res.json(item))
-  .catch( error => res.status(404).json({success: false}));
+  const item = await Item.findById(req.body._id);
+
+  if (item.meal) {
+    const lastMealID = item.meal;
+    const lastUpdatedMeal = await Meal.findById(lastMealID);
+    let items = lastUpdatedMeal.items;
+    let updatedItems = items.filter(  mealItem => {
+      return String(mealItem._id) !== String(item._id);
+    });
+    await lastUpdatedMeal.updateOne( { items:  updatedItems } );
+    await lastUpdatedMeal.save();
+  } 
+  
+  await item.updateOne({
+    "fridge" : null,
+    "pantry" : null,
+    "meal":mongoose.Types.ObjectId(req.params.id)
+  });
+  
+  const updatedMeal = await Meal.findById(req.params.id);
+  updatedMeal.items.push(item);
+  await updatedMeal.save();
+  
+  let meals = await Meal.find()
+                      .populate('items')
+                      .sort({ date: -1 })
+                      .then(meals => {
+                        res.json(meals);
+                      });
+
+  return res.json(meals);
 });
 
 // DELETE api/meals/:id

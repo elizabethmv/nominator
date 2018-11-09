@@ -32,7 +32,7 @@ class MealsListDropdown extends React.Component {
   async onClickDropdown(e) {
     switch (e.target.name) {
       case 'meal':
-        this.props.addItemToMeal( { _id: e.target.id  }, { _id: this.props.id })
+        this.props.addItemToMeal( { _id: e.target.id  }, { _id: this.props.id, meal: this.props.parentMeal })
         break;
       default:
         break;

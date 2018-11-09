@@ -5,7 +5,9 @@ import {
   ADD_ITEM_TO_PANTRY, 
   DELETE_ITEM_FROM_PANTRY, 
 } from './types';
+
 import { deleteItemFromFridge } from './fridgeActions';
+import { deleteItemFromMeal } from './mealActions';
 
 export const setPantryItemsLoading  = ()  => {
   return {
@@ -30,7 +32,10 @@ export const addItemToPantry = (pantry, item) => dispatch => {
         type: ADD_ITEM_TO_PANTRY,
         payload: response.data
       });
+
       dispatch( deleteItemFromFridge(item) );
+      dispatch( deleteItemFromMeal(item) );
+
     })
 }
 
