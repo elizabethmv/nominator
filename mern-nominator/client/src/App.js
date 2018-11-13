@@ -12,6 +12,9 @@ import { Provider } from 'react-redux';
 import store from './store';
 import ShowRecipesModal from './components/ShowRecipesModal';
 
+import { Route } from "react-router-dom";
+
+
 const Display = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -40,10 +43,20 @@ class App extends Component {
               <Box><ShowRecipesModal name='Show Recipes'/></Box>
               <Box><AddMealModal name='Add Meal'/></Box>
             </Display>
-            <Collection />
+            {/* <Route path="/" component={Home} />
+            <Route path="/home" component={Home} /> */}
           </Main>
           <h6 style={{textAlign:'center', marginTop: '2rem'}}>Welcome! to the Nominator App, Where you can add items or delete them, is up to you to decide.</h6>
+          <Route path="/collection" component={Collection} />
+          
+          <Route path="/modal" component={AddItemModal} />
+
         </div>
+
+        
+      
+        
+
       </Provider> 
     );
   }
