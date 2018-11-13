@@ -51,6 +51,8 @@ export const addItem = item  => dispatch => {
     })
 }
 
+export const addIngredient = item  => dispatch => dispatch({ type: ADD_ITEM, payload: item})  
+
 export const deleteItem = item => dispatch => {
   axios.delete(`/api/items/${item._id}`)
     .then( response => {

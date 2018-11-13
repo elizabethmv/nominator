@@ -7,6 +7,7 @@ import { getMeals } from '../actions/mealActions'
 import LocationDropdown from './LocationDropdown';
 import styled from 'styled-components';
 import MealsListDropdown from './MealsListDropdown';
+import './Item.css';
 
 // import { TransitionGroup } from 'react-transition-group';
 // import { CSSTransition } from 'react-transition-group';
@@ -32,7 +33,8 @@ const Box3 = styled.div`
 
 const Item  = props =>{
   return <Display>
-    <ListGroupItem>
+    {/* style={{'backgroundColor':'blue'}} */}
+    <ListGroupItem className='item'>
         <Box>
           <Button
             className="remove-btn"
