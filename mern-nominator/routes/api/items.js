@@ -21,6 +21,7 @@ router.get('/:id',  (req, res) => {
 
 // POST api/items
 router.post('/', async (req, res) => {
+  
   const { name, fridge, pantry, meal, ingredients } = req.body;
   
   if(!ingredients){
@@ -34,15 +35,19 @@ router.post('/', async (req, res) => {
     res.status(201).json(newItem);
   }
   else if( ingredients ){
-    res.status(201).json(
-      ingredients.map( async ingredient => {
-        console.log(ingredient);
-        const newItem = new Item({ 'name':ingredient, 'fridge':null, 'pantry':null, 'meal':null })
-        await newItem.save();
-        return newItem
-      })
-    )
+    const items = Promise.all(ingredients.map( async ingredient => {
+      const newItem = new Item({ 'name':ingredient, 'fridge':null, 'pantry':null, 'meal':null })
+      await newItem.save();
+      console.log(newItem);
+      return newItem;
+    })).then( data =>{ 
+      console.log(3,items);
+      res.status(201).json(data)
+    });
+    
+    
   }
+
 });
 
 // DELETE api/items/:id

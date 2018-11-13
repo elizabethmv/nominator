@@ -58,7 +58,7 @@ export default function(state = initialState, action) {
             return  item._id !== action.payload._id
           })   
           meal.items = items;
-          console.log(meal);
+          // console.log(meal);
           return meal;  
         })
       }  
