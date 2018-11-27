@@ -35,6 +35,7 @@ router.post('/', async (req, res) => {
     res.status(201).json(newItem);
   }
   else if( ingredients ){
+    console.log('Boom!')
     const items = Promise.all(ingredients.map( async ingredient => {
       const newItem = new Item({ 'name':ingredient, 'fridge':null, 'pantry':null, 'meal':null })
       await newItem.save();

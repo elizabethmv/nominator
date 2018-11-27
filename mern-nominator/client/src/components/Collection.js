@@ -25,6 +25,7 @@ const Box = styled.div`
   constructor(){
     super();
     this.state = {
+      items: [],
       fridgeItems: [] ,
       pantryItems: [] 
     }

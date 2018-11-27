@@ -6,19 +6,17 @@ import {
   Button,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getItems } from '../actions/itemActions';
-import axios from 'axios';
-import Recipe from './Recipe';
+import { getShoppingListsItems } from '../actions/recipeActions';
+import Item from './Item';
 
-class ShowRecipesModal extends Component {
+class ShoppingListModal extends Component {
   constructor(props){
     super(props);
     this.state = {
       modal: false,
       run: true,
-      recipes: []
+      items: []
     };
-    this.getRecipes = this.getRecipes.bind(this);
   }
 
   toggle = () => {
@@ -28,29 +26,12 @@ class ShowRecipesModal extends Component {
   };
 
   componentDidMount() {
-    this.props.getItems();
-  }
-
-  getRecipes() {
-    const { items } = this.props.item;
-    axios.post(`/api/recipes`, items )
-      .then( response => {
-        this.setState({ recipes: response.data.results})
-      });
+    this.props.getShoppingListsItems();
   }
 
   render() {
-    
-    const { recipes } = this.state;
-    const { items } = this.props.item;
-
-    if (items && items.length > 0 && this.state.modal) {
-      this.getRecipes();
-    }
-
-    // console.log('recipes',recipes.length);
+    const { items } = this.props.recipe;
     // console.log('items',items.length);
-
     return (
       <div>
         <Button
@@ -61,22 +42,19 @@ class ShowRecipesModal extends Component {
           {this.props.name}
         </Button>
         <Modal style={{'flexD irection':'row'}} isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Possible Recipes</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Shopping List</ModalHeader>
               {
-                recipes.map( (recipe, index) => 
+                items.map( (item, index) => 
                   <ModalBody key={index} style={{'border':'1px black solid'}}>
                     {
-                      <Recipe
+                      <Item
                           style={{  'flex': '1 1 1' }}
                           key={index}
                           id={index}
-                          title={recipe.title}
-                          href={recipe.href}
-                          ingredients={recipe.ingredients}
-                          thumbnail={recipe.thumbnail}
-                          items={items}
+                          name={item.name}
                         />
                     }
+                    
                   </ModalBody>
                 )
               }
@@ -87,10 +65,10 @@ class ShowRecipesModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item
+  recipe: state.recipe
 });
 
 export default connect(
   mapStateToProps,
-  { getItems }
-)(ShowRecipesModal);
+  { getShoppingListsItems }
+)(ShoppingListModal);
